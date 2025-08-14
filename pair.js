@@ -498,10 +498,9 @@ function setupCommandHandlers(socket, number) {
                         image: { url: config.BUTTON_IMAGES.ALIVE },
                         caption: formatMessage(title, content, footer),
                         buttons: [
-                            { buttonId: `${config.PREFIX}sssong lelena`, buttonText: { displayText: 'MNU' }, type: 1 },
-                            { buttonId: `${config.PREFIX}sssong | lelena`, buttonText: { displayText: 'MNU' }, type: 1 },
-                            { buttonId: `.sssong|lelena`, buttonText: { displayText: 'PNG' }, type: 1 }
-                        ],
+                       { buttonId: `${config.PREFIX}sssong + 'lelena'`, buttonText: { displayText: '3test' }, type: 1 },
+                            { buttonId: `${config.PREFIX}sssong + lelena`, buttonText: { displayText: '2test' }, type: 1 },
+                            { buttonId: `.sssong+lelena`, buttonText: { displayText: '1test' }, type: 1 }],
                         quoted: msg
                     });
                     break;
