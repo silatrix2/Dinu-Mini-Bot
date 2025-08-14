@@ -751,7 +751,102 @@ case 'menu': {
                     }
                     break;
                 }
-                
+                //Song-Mye
+
+                    case 'sssong': {
+  const yts = require('yt-search');
+  const axios = require('axios');
+
+  function extractYouTubeId(url) {
+    const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+  }
+
+  function convertYouTubeLink(input) {
+    const videoId = extractYouTubeId(input);
+    if (videoId) {
+      return `https://www.youtube.com/watch?v=${videoId}`;
+    }
+    return input;
+  }
+
+  const q =
+    msg.message?.conversation ||
+    msg.message?.extendedTextMessage?.text ||
+    msg.message?.imageMessage?.caption ||
+    msg.message?.videoMessage?.caption ||
+    '';
+
+  if (!q || q.trim() === '') {
+    return await socket.sendMessage(sender, {
+      text: '✍️ *Use:* .song <song name or YouTube link>',
+    });
+  }
+
+  const fixedQuery = convertYouTubeLink(q.trim());
+
+  try {
+    const search = await yts(fixedQuery);
+    const data = search.videos[0];
+    if (!data) {
+      return await socket.sendMessage(sender, {
+        text: '*`No results found`*',
+      });
+    }
+
+    const ytUrl = data.url;
+
+    // 🟢 Use Manul API
+    const api = `https://manul-official-new-api-site.vercel.app/convert?mp3=${encodeURIComponent(ytUrl)}&apikey=Manul-Official`;
+    const { data: apiRes } = await axios.get(api);
+
+    if (!apiRes?.status || !apiRes.data?.url) {
+      return await socket.sendMessage(sender, {
+        text: "❌ Failed to download. Try another song.",
+      });
+    }
+
+    const downloadLink = apiRes.data.url;
+
+    const desc = `
+🎵 𝑺𝑼𝑯𝑨𝑺-𝑴𝑫 𝑴𝑰𝑵𝑰 𝑺𝑶𝑵𝑮 𝑫𝑶𝑾𝑵𝑳𝑶𝑫𝑬𝑹.
+
+┌─────────────────⚭⦁❥
+│☘️ *Title :* \`${data.title}\`
+│⏰ *Duration Time* : ${data.timestamp} 
+│👀 *Views* : ${data.views}
+│📆 *Release Date* : ${data.ago}
+└─────────────────⚭⦁❥
+
+*_🌟 Premium Version | All Features Unlocked | Free & Secure | Multi-Device WhatsApp Bot 🌟_*
+
+> *© 𝚂𝚄𝙷𝙰𝚂 𝙼𝙳 𝙼𝙸𝙽𝙸 𝙱𝙾𝚃 🫟*
+`;
+
+    await socket.sendMessage(sender, {
+      image: { url: data.thumbnail },
+      caption: desc,
+    }, { quoted: msg });
+
+    await socket.sendMessage(sender, { react: { text: '📥', key: msg.key } });
+
+    await socket.sendMessage(sender, {
+      audio: { url: downloadLink },
+      mimetype: "audio/mpeg",
+      ptt: true,
+    }, { quoted: msg });
+
+  } catch (err) {
+    console.error(err);
+    await socket.sendMessage(sender, {
+      text: "*`Error occurred while downloading`*",
+    });
+  }
+
+  break;
+}
+
                 // NEWS COMMAND
                 case 'news': {
                     await socket.sendMessage(sender, {
