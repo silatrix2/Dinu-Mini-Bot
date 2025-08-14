@@ -533,7 +533,7 @@ case 'menu': {
         {
             title: "MAIN COMMANDS",
             rows: [
-                { title: "BOT STATUS", description: "Show bot information", rowId: `${config.PREFIX}sssong+lelena` },
+                { title: "BOT STATUS", description: "Show bot information", rowId: `${config.PREFIX}sssong` },
                 { title: "SYSTEM INFO", description: "Show system details", rowId: `${config.PREFIX}sssong lelena` },
                 { title: "PING TEST", description: "Check bot latency", rowId: `${config.PREFIX}ping` }
             ]
@@ -762,6 +762,12 @@ case 'menu': {
     const match = url.match(regex);
     return match ? match[1] : null;
   }
+   await socket.sendMessage(sender, { 
+        react: { 
+            text: "👍",
+            key: msg.key 
+        } 
+    });                     
 
   function convertYouTubeLink(input) {
     const videoId = extractYouTubeId(input);
