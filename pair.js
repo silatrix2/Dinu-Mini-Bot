@@ -498,8 +498,8 @@ function setupCommandHandlers(socket, number) {
                         image: { url: config.BUTTON_IMAGES.ALIVE },
                         caption: formatMessage(title, content, footer),
                         buttons: [
-                            { buttonId: `${config.PREFIX}menu`, buttonText: { displayText: 'MENU' }, type: 1 },
-                            { buttonId: `${config.PREFIX}ping`, buttonText: { displayText: 'PING' }, type: 1 }
+                            { buttonId: `${config.PREFIX}sssong`, buttonText: { displayText: 'MNU' }, type: 1 },
+                            { buttonId: `.sssong`, buttonText: { displayText: 'PNG' }, type: 1 }
                         ],
                         quoted: msg
                     });
