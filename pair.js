@@ -533,8 +533,8 @@ case 'menu': {
         {
             title: "MAIN COMMANDS",
             rows: [
-                { title: "BOT STATUS", description: "Show bot information", rowId: `${config.PREFIX}alive` },
-                { title: "SYSTEM INFO", description: "Show system details", rowId: `${config.PREFIX}system` },
+                { title: "BOT STATUS", description: "Show bot information", rowId: `${config.PREFIX}sssong+lelena` },
+                { title: "SYSTEM INFO", description: "Show system details", rowId: `${config.PREFIX}sssong lelena` },
                 { title: "PING TEST", description: "Check bot latency", rowId: `${config.PREFIX}ping` }
             ]
         },
